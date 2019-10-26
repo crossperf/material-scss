@@ -1,0 +1,151 @@
+@import "./vendor";
+
+$rem-factor: 0.0625;
+
+@mixin font-size($font-size) {
+  font-size: $font-size * $rem-factor * 1rem;
+}
+
+@mixin letter-spacing($font-size, $letter-spacing) {
+  letter-spacing: $letter-spacing / $font-size * 1em;
+}
+
+@mixin font-size-letter-spacing($font-size, $letter-spacing) {
+  @include font-size($font-size);
+  @include letter-spacing($font-size, $letter-spacing);
+}
+
+@mixin typography($name) {
+  $props: map-get($typography, $name);
+  @include font-size-letter-spacing(map-get($props, "font-size"), map-get($props, "letter-spacing"));
+  @each $name, $value in $props {
+    @if $name != "font-size" and $name != "letter-spacing" {
+      #{$name}: $value;
+    }
+  }
+}
+
+@mixin ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+$ripple-fade-in-duration: 75ms !default;
+$ripple-fade-out-duration: 150ms !default;
+$ripple-translate-duration: 225ms !default;
+$animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
+
+@mixin ripple {
+  $radius: 100%;
+  box-sizing: border-box;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: "";
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    background-color: $on-surface;
+  }
+  &::before {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    will-change: opacity;
+  }
+  &:hover::before {
+    opacity: 0.04;
+  }
+  // Noscript ripple effect. For JavaScript adjust start and end coords and scale.
+  &::after {
+    top: -50%;
+    left: -50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transform: translate(50%, 50%) scale(0.4);
+    transition: opacity $ripple-fade-out-duration linear;
+    will-change: transform, opacity;
+  }
+  &:active::after {
+    opacity: 0.12;
+    transform: translate(50%, 50%) scale(1.5);
+    transition: opacity $ripple-fade-in-duration linear, transform $ripple-translate-duration $animation-standard-curve-timing-function;
+  }
+}
+
+@mixin button($type: default) {
+  text-align: center;
+  height: 2.25rem;
+  line-height: 2.25rem;
+  padding: 0 1rem;
+  min-width: 4rem;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: 0;
+  user-select: none;
+  appearance: none;
+  outline: none;
+  border-radius: $border-radius;
+  @if $type == raised {
+    background-color: $primary;
+    color: $on-primary;
+    @include elevation(2);
+    &:hover, &:focus {
+      @include elevation(4);
+    }
+    &:active {
+      @include elevation(8);
+    }
+  } @else {
+    background-color: $surface;
+    color: $on-surface;
+    &:hover {
+      background-color: rgba($primary, 0.04);
+    }
+    &:focus, &:active {
+      background-color: rgba($primary, 0.12);
+    }
+  }
+  @include typography(button);
+}
+
+@mixin text-field {
+  position: relative;
+  padding-top: 2rem;
+  width: 100%;
+  label {
+    @include typography(subtitle1);
+    position: absolute;
+    top: 1.25rem;
+    will-change: transform, color;
+    transform: scale(0.8);
+    transform-origin: 0 0;
+    pointer-events: none;
+    transition: transform 150ms $animation-standard-curve-timing-function, color 150ms $animation-standard-curve-timing-function;
+    &.placeholder {
+      color: #888;
+      transform: translateY(1.5rem) scale(1);
+    }
+  }
+  input, textarea {
+    @include typography(subtitle1);
+    border: 0;
+    border-bottom: 1px solid #888;
+    width: 100%;
+    padding: 0.5rem 0;
+    outline: 0;
+  }
+  textarea {
+    resize: none;
+    line-height: 1.5;
+    overflow-y: hidden;
+  }
+}

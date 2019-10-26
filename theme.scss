@@ -1,0 +1,100 @@
+@import "./functions";
+@import "./mixins";
+
+$primary: #6200ee !default;
+$on-primary: on-color($primary);
+
+$secondary: #018786 !default;
+$on-secondary: on-color($secondary);
+$background: #fff !default;
+
+$surface: #fff !default;
+$on-surface: on-color($surface);
+
+$error: #b00020;
+$on-error: #fff;
+
+$sans-serif: sans-serif;
+$serif: serif;
+
+$typography: (
+  headline1: (
+    font-size: 96,
+    font-weight: light,
+    letter-spacing: -1.5,
+    font-family: $sans-serif,
+  ),
+  headline2: (
+    font-size: 60,
+    font-weight: light,
+    letter-spacing: -0.5,
+    font-family: $sans-serif,
+  ),
+  headline3: (
+    font-size: 48,
+    letter-spacing: 0,
+    font-family: $sans-serif,
+  ),
+  headline4: (
+    font-size: 34,
+    letter-spacing: 0.25,
+    font-family: $sans-serif,
+  ),
+  headline5: (
+    font-size: 24,
+    letter-spacing: 0,
+    font-family: $sans-serif,
+  ),
+  headline6: (
+    font-size: 20,
+    letter-spacing: 0.25,
+    font-family: $sans-serif,
+  ),
+  subtitle1: (
+    font-size: 16,
+    letter-spacing: 0.15,
+    font-family: $sans-serif,
+  ),
+  subtitle2: (
+    font-size: 14,
+    letter-spacing: 0.1,
+    font-family: $sans-serif,
+  ),
+  body1: (
+    font-size: 16,
+    letter-spacing: 0.5,
+    font-family: $sans-serif,
+  ),
+  body2: (
+    font-size: 14,
+    letter-spacing: 0.25,
+    font-family: $sans-serif,
+  ),
+  button: (
+    font-size: 14,
+    letter-spacing: 1.25,
+    text-transform: uppercase,
+    font-family: $sans-serif,
+  ),
+  caption: (
+    font-size: 12,
+    letter-spacing: 0.4,
+    font-family: $sans-serif,
+  ),
+  overline: (
+    font-size: 10,
+    letter-spacing: 2,
+    text-transform: uppercase,
+    font-family: $sans-serif,
+  ),
+) !default;
+
+$typography: map-merge($typography, ());
+
+$breakpoints: (
+  desktop: 9in,
+  tablet: 5in,
+  phone: 0,
+) !default;
+
+$border-radius: 4px !default;
