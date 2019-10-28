@@ -173,9 +173,20 @@ $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
   }
 }
 
-@mixin span($size: 4) {
-  overflow: hidden;
-  @each $device, $num-columns in $columns {
+@mixin __span($size, $device) {
+  @if $device == null {
+    overflow: hidden;
+    @each $device, $num-columns in $columns {
+      @content($device, $num-columns);
+    }
+  } @else {
+    $num-columns: map-get($columns, $device);
+    @content($device, $num-columns);
+  }
+}
+
+@mixin span($size: 4, $type: null) {
+  @include __span($size, $type) using ($device, $num-columns) {
     $width: (100% / $num-columns) * $size;
     $gutter: map-get($gutters, $device);
     @include breakpoint($device) {
