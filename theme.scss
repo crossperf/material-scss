@@ -92,9 +92,20 @@ $typography: (
 $typography: map-merge($typography, ());
 
 $breakpoints: (
-  desktop: 9in,
-  tablet: 5in,
-  phone: 0,
+  tablet: 9in,
+  phone: 5in,
+) !default;
+
+$columns: (
+  desktop: 12,
+  tablet: 8,
+  phone: 4,
+) !default;
+
+$gutters: (
+  desktop: 2rem,
+  tablet: 1.5rem,
+  phone: 1rem,
 ) !default;
 
 $border-radius: 4px !default;

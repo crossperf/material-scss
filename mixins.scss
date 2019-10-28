@@ -142,10 +142,46 @@ $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
     width: 100%;
     padding: 0.5rem 0;
     outline: 0;
+    background: transparent;
   }
   textarea {
     resize: none;
     line-height: 1.5;
     overflow-y: hidden;
+  }
+}
+
+@mixin breakpoint($type: desktop) {
+  $breakpoint: map-get($breakpoints, $type);
+  @if $breakpoint == null {
+    @content;
+  } @else {
+    @media (max-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+@mixin layout-grid {
+  display: flex;
+  flex-wrap: wrap;
+  @each $device, $gutter in $gutters {
+    @include breakpoint($device) {
+      $margin: -($gutter / 2);
+      margin: 0 $margin;
+    }
+  }
+}
+
+@mixin span($size: 4) {
+  overflow: hidden;
+  @each $device, $num-columns in $columns {
+    $width: (100% / $num-columns) * $size;
+    $gutter: map-get($gutters, $device);
+    @include breakpoint($device) {
+      width: calc(#{$width} - #{$gutter});
+      max-width: calc(100% - #{$gutter});
+      margin: 0 ($gutter / 2);
+    }
   }
 }
