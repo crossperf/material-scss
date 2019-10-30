@@ -154,51 +154,47 @@ $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
     background: transparent;
     padding: 0.5rem 0;
     border-bottom: 1px solid lighten($on-surface, 58%);
-    & + label.first {
-      transition: opacity 150ms $animation-standard-curve-timing-function, transform 150ms $animation-standard-curve-timing-function, color 150ms $animation-standard-curve-timing-function;
-      will-change: opacity, transform, color;
-      & + label {
+    & ~ label {
+      &.first, &.second {
         transition: opacity 150ms $animation-standard-curve-timing-function, transform 150ms $animation-standard-curve-timing-function, color 150ms $animation-standard-curve-timing-function;
         will-change: opacity, transform, color;
       }
     }
-    &[required] + .line-ripple + label::after{
+    &[required] ~ label::after {
       content: " *";
     }
     &:hover {
       padding-bottom: calc(0.5rem - 1px);
       border-bottom: 2px inset lighten($on-surface, 13%);
     }
-    & + .line-ripple + label.first + label {
+    & ~ label.second {
       opacity: 0;
     }
     &:placeholder-shown {
-      & + .line-ripple + label {
+      & ~ label {
         transform: translateY(1.5rem) scale(1);
         &.first {
           opacity: 0;
-          & + label {
-            opacity: 1;
-            transform: translateY(1.5rem) scale(1);
-          }
+        }
+        &.second {
+          opacity: 1;
         }
       }
     }
-    &:focus {
+    &:focus, &:placeholder-shown:focus {
       caret-color: $primary;
       & + .line-ripple {
         opacity: 1;
         transform: scaleX(1);
-        & + label {
-          transform: scale(0.8);
-          color: $primary !important;
-          &.first {
-            opacity: 1;
-            & + label {
-              opacity: 0;
-              transform: scale(0.8);
-            }
-          }
+      }
+      & ~ label {
+        transform: scale(0.8);
+        color: $primary !important;
+        &.first {
+          opacity: 1;
+        }
+        &.second {
+          opacity: 0;
         }
       }
     }
