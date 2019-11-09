@@ -37,7 +37,6 @@ $ripple-translate-duration: 225ms !default;
 $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
 
 @mixin ripple {
-  $radius: 100%;
   box-sizing: border-box;
   color: inherit;
   cursor: pointer;
@@ -70,7 +69,7 @@ $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    transform: translate(50%, 50%) scale(0.4);
+    transform: translate(50%, 50%) scale(1.1);
     transition: opacity $ripple-fade-out-duration linear;
     will-change: transform, opacity;
   }
