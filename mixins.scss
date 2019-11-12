@@ -36,9 +36,8 @@ $ripple-fade-out-duration: 150ms !default;
 $ripple-translate-duration: 225ms !default;
 $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
 
-@mixin ripple {
+@mixin ripple($color: $on-surface) {
   box-sizing: border-box;
-  color: inherit;
   cursor: pointer;
   outline: none;
   overflow: hidden;
@@ -50,7 +49,7 @@ $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
     opacity: 0;
     pointer-events: none;
     position: absolute;
-    background-color: $on-surface;
+    background-color: $color;
   }
   &::before {
     top: 0;
@@ -94,6 +93,7 @@ $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
   outline: none;
   border-radius: $border-radius;
   @if $type == raised {
+    @include ripple($on-primary);
     background-color: $primary;
     color: $on-primary;
     @include elevation(2);
@@ -104,6 +104,7 @@ $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
       @include elevation(8);
     }
   } @else {
+    @include ripple($primary);
     background-color: $surface;
     color: $on-surface;
     &:hover {
