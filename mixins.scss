@@ -325,7 +325,7 @@ $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
   & > ul {
     margin: 0;
     padding: 0;
-    list-style: none;
+    list-style-type: none;
     display: flex;
     width: 100%;
     & > li {
