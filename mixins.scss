@@ -231,6 +231,7 @@ $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
 }
 
 @mixin __span($size, $device) {
+  box-sizing: border-box;
   @if $device == null {
     overflow: hidden;
     @each $device, $num-columns in $columns {
