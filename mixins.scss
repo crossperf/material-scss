@@ -382,3 +382,21 @@ $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
     }
   }
 }
+
+@mixin content {
+  h1 {
+    @include typography(headline5);
+  }
+
+  h2 {
+    @include typography(subtitle1);
+  }
+
+  h3 {
+    @include typography(headline6);
+  }
+
+  p {
+    @include typography(body2);
+  }
+}
