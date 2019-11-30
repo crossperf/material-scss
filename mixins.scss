@@ -308,7 +308,7 @@ $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
 
 @mixin drawer {
   box-sizing: border-box;
-  z-index: 3;
+  z-index: 8;
   background: $surface;
   border-right: 1px solid rgba($on-surface, 0.12);
   width: 16rem;
@@ -385,7 +385,7 @@ $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
       & > ul {
         width: 100%;
         position: absolute;
-        z-index: 1;
+        z-index: 4;
         @include menu;
       }
     }
@@ -431,7 +431,7 @@ $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: 8;
   background: $primary;
   transition: transform $generic-duration $animation-standard-curve-timing-function;
   will-change: transform;
