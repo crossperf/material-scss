@@ -35,6 +35,7 @@ $rem-factor: 0.0625;
 $ripple-fade-in-duration: 75ms !default;
 $ripple-fade-out-duration: 150ms !default;
 $ripple-translate-duration: 225ms !default;
+$generic-duration: 225ms !default;
 $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
 
 @mixin ripple($color: $on-surface) {
@@ -307,7 +308,7 @@ $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
 
 @mixin drawer {
   box-sizing: border-box;
-  z-index: 1;
+  z-index: 3;
   background: $surface;
   border-right: 1px solid rgba($on-surface, 0.12);
   width: 16rem;
@@ -323,61 +324,140 @@ $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
 
 @mixin tabs {
   position: relative;
-  & > ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    display: flex;
-    width: 100%;
-    & > li {
-      flex: 1 0 0;
-      & > div, & > button, & > a {
-        @include typography(button);
-        text-transform: uppercase;
-        padding: 0 1.5rem;
-        height: 3rem;
-        color: $on-surface;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 500;
-        position: relative;
-        &:hover {
-          background: rgba($primary, 0.04);
-        }
-        & > .ripple {
-          @include ripple($primary);
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-        }
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  width: 100%;
+  & > li {
+    flex: 1 0 0;
+    & > .tab, & > button, & > a {
+      @include typography(button);
+      text-transform: uppercase;
+      padding: 0 1.5rem;
+      height: 3rem;
+      color: $on-surface;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      position: relative;
+      &:hover {
+        background: rgba($primary, 0.04);
+      }
+      & > .ripple {
+        @include ripple($primary);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+      & > .indicator {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background: $primary;
+        opacity: 0;
+        pointer-events: none;
+        will-change: transform, opacity;
+        transition: transform 250ms $animation-standard-curve-timing-function;
+      }
+      &.active {
+        color: $primary;
         & > .indicator {
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          height: 2px;
-          background: $primary;
-          opacity: 0;
-          pointer-events: none;
-          will-change: transform, opacity;
-          transition: transform 250ms $animation-standard-curve-timing-function;
-        }
-        &.active {
-          color: $primary;
-          & > .indicator {
-            opacity: 1;
-          }
+          opacity: 1;
         }
       }
-      & > button {
-        background: transparent;
-        border: 0;
+    }
+    & > button {
+      background: transparent;
+      border: 0;
+    }
+    & > a {
+      text-decoration: none;
+    }
+    & > .dropdown {
+      display: none;
+      position: relative;
+      & > ul {
+        width: 100%;
+        position: absolute;
+        z-index: 1;
+        @include menu;
       }
-      & > a {
-        text-decoration: none;
+    }
+    &:hover {
+      & > .dropdown {
+        display: block;
+      }
+    }
+  }
+}
+
+@mixin menu($edge: sharp) {
+  @if $edge == rounded {
+    border-radius: $border-radius;
+  }
+  @include elevation(4);
+  list-style-type: none;
+  background: $surface;
+  margin: 0;
+  padding: 0.5rem 0;
+  a {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    height: 3rem;
+    text-decoration: none;
+    color: $on-surface;
+    @include typography(subtitle1);
+    @include ripple;
+  }
+}
+
+@mixin bottom-navigation {
+  display: none;
+  @include breakpoint(tablet) {
+    display: flex;
+  }
+  justify-content: space-around;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background: $primary;
+  transition: transform $generic-duration $animation-standard-curve-timing-function;
+  will-change: transform;
+  @include elevation(8);
+  & > li {
+    flex: 1 0 0;
+    min-width: 5rem;
+    max-width: 10.5rem;
+    & > a {
+      opacity: 0.76;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 3.5rem;
+      padding: 0 0.75rem;
+      color: $on-primary;
+      text-decoration: none;
+      @include typography(caption);
+      @include ripple($on-primary);
+      & > .icon {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      &:hover, &:active, &:focus {
+        opacity: 1;
       }
     }
   }
