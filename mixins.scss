@@ -309,6 +309,7 @@ $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
     padding: 0.75rem;
     color: $foreground;
     text-decoration: none;
+    @include ellipsis;
     @include typography(headline6);
   }
 }
@@ -459,6 +460,7 @@ $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
       padding-bottom: 0.625rem;
       color: $on-primary;
       text-decoration: none;
+      @include ellipsis;
       @include typography(caption);
       @include ripple($on-primary);
       & > .icon {
