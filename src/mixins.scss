@@ -226,7 +226,8 @@ $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
   @each $device, $gutter in $gutters {
     @include breakpoint($device) {
       $margin: -($gutter / 2);
-      margin: 0 $margin;
+      margin-left: $margin;
+      margin-right: $margin;
     }
   }
 }
@@ -251,7 +252,8 @@ $animation-standard-curve-timing-function: cubic-bezier(.4, 0, .2, 1) !default;
     @include breakpoint($device) {
       width: calc(#{$width} - #{$gutter});
       max-width: calc(100% - #{$gutter});
-      margin: 0 ($gutter / 2);
+      margin-left: ($gutter / 2);
+      margin-right: ($gutter / 2);
     }
   }
 }
